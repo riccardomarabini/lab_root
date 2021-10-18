@@ -1,0 +1,5 @@
+/home/riccardo_marabini/root/macros/proj_root/build/CMakeFiles/rebuild_cache.dir
+/home/riccardo_marabini/root/macros/proj_root/build/CMakeFiles/main_test_2.dir
+/home/riccardo_marabini/root/macros/proj_root/build/CMakeFiles/edit_cache.dir
+/home/riccardo_marabini/root/macros/proj_root/build/CMakeFiles/test.dir
+/home/riccardo_marabini/root/macros/proj_root/build/CMakeFiles/main_test_1.dir

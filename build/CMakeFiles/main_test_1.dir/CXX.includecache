@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/riccardo_marabini/root/macros/proj_root/ParticleType.cpp
+ParticleType.h
+/home/riccardo_marabini/root/macros/proj_root/ParticleType.h
+iostream
+-
+
+/home/riccardo_marabini/root/macros/proj_root/ParticleType.h
+string
+-
+
+/home/riccardo_marabini/root/macros/proj_root/ResonanceType.cpp
+ResonanceType.h
+/home/riccardo_marabini/root/macros/proj_root/ResonanceType.h
+iostream
+-
+ParticleType.h
+/home/riccardo_marabini/root/macros/proj_root/ParticleType.h
+
+/home/riccardo_marabini/root/macros/proj_root/ResonanceType.h
+ParticleType.h
+/home/riccardo_marabini/root/macros/proj_root/ParticleType.h
+
+/home/riccardo_marabini/root/macros/proj_root/main_test_1.cpp
+array
+-
+memory
+-
+ParticleType.h
+/home/riccardo_marabini/root/macros/proj_root/ParticleType.h
+ResonanceType.h
+/home/riccardo_marabini/root/macros/proj_root/ResonanceType.h
+

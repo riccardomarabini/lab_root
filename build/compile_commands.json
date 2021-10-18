@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/riccardo_marabini/root/macros/proj_root/build",
+  "command": "/bin/g++-9    -g   -Wall -Wextra -fsanitize=address -o CMakeFiles/main_test_2.dir/main_test_2.cpp.o -c /home/riccardo_marabini/root/macros/proj_root/main_test_2.cpp",
+  "file": "/home/riccardo_marabini/root/macros/proj_root/main_test_2.cpp"
+},
+{
+  "directory": "/home/riccardo_marabini/root/macros/proj_root/build",
+  "command": "/bin/g++-9    -g   -Wall -Wextra -fsanitize=address -o CMakeFiles/main_test_2.dir/ParticleType.cpp.o -c /home/riccardo_marabini/root/macros/proj_root/ParticleType.cpp",
+  "file": "/home/riccardo_marabini/root/macros/proj_root/ParticleType.cpp"
+},
+{
+  "directory": "/home/riccardo_marabini/root/macros/proj_root/build",
+  "command": "/bin/g++-9    -g   -Wall -Wextra -fsanitize=address -o CMakeFiles/main_test_2.dir/ResonanceType.cpp.o -c /home/riccardo_marabini/root/macros/proj_root/ResonanceType.cpp",
+  "file": "/home/riccardo_marabini/root/macros/proj_root/ResonanceType.cpp"
+},
+{
+  "directory": "/home/riccardo_marabini/root/macros/proj_root/build",
+  "command": "/bin/g++-9    -g   -Wall -Wextra -fsanitize=address -o CMakeFiles/main_test_2.dir/Particle.cpp.o -c /home/riccardo_marabini/root/macros/proj_root/Particle.cpp",
+  "file": "/home/riccardo_marabini/root/macros/proj_root/Particle.cpp"
+},
+{
+  "directory": "/home/riccardo_marabini/root/macros/proj_root/build",
+  "command": "/bin/g++-9    -g   -Wall -Wextra -fsanitize=address -o CMakeFiles/main_test_1.dir/main_test_1.cpp.o -c /home/riccardo_marabini/root/macros/proj_root/main_test_1.cpp",
+  "file": "/home/riccardo_marabini/root/macros/proj_root/main_test_1.cpp"
+},
+{
+  "directory": "/home/riccardo_marabini/root/macros/proj_root/build",
+  "command": "/bin/g++-9    -g   -Wall -Wextra -fsanitize=address -o CMakeFiles/main_test_1.dir/ParticleType.cpp.o -c /home/riccardo_marabini/root/macros/proj_root/ParticleType.cpp",
+  "file": "/home/riccardo_marabini/root/macros/proj_root/ParticleType.cpp"
+},
+{
+  "directory": "/home/riccardo_marabini/root/macros/proj_root/build",
+  "command": "/bin/g++-9    -g   -Wall -Wextra -fsanitize=address -o CMakeFiles/main_test_1.dir/ResonanceType.cpp.o -c /home/riccardo_marabini/root/macros/proj_root/ResonanceType.cpp",
+  "file": "/home/riccardo_marabini/root/macros/proj_root/ResonanceType.cpp"
+}
+]
