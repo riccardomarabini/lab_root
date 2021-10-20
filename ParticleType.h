@@ -10,8 +10,10 @@ class ParticleType {
   std::string GetName() const noexcept;
   double GetMass() const noexcept;
   double GetCharge() const noexcept;
+  virtual double GetWidth() const noexcept;
   virtual void Print() const noexcept;
-  //virtual ~ParticleType()=0;
+
+  // virtual ~ParticleType()=0;
 
  private:
   const std::string name_;

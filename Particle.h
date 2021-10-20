@@ -36,6 +36,7 @@ class Particle {
 
   // manipolazione
   double InvMass(Particle const& p) const;
+  int Decay2body(Particle& dau1, Particle& dau2) const;
 
   // metodi static di manipolazione
   static void AddParticleType(std::string const& name, double mass,
@@ -53,6 +54,7 @@ class Particle {
   double Pz_;
 
   static int FindParticle(std::string const& name);
+  void Boost(double bx, double by, double bz);
 };
 
 }  // namespace ParticlePhysics

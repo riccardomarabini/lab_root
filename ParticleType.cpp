@@ -14,6 +14,7 @@ ParticleType::ParticleType(std::string const& name, double mass, double charge)
 std::string ParticleType::GetName() const noexcept { return name_; }
 double ParticleType::GetMass() const noexcept { return mass_; }
 double ParticleType::GetCharge() const noexcept { return charge_; }
+double ParticleType::GetWidth() const noexcept { return 0; }
 void ParticleType::Print() const noexcept {
   std::cout << "Name: " << name_ << '\n'
             << "Mass: " << mass_ << '\n'
