@@ -16,6 +16,13 @@ class Particle {
   Particle(std::string const& name, double Px, double Py, double Pz);
   Particle(std::string const& name);
   Particle();  // quale indice dobiammo mettere di default
+  // FOLLOWING THE RULE OF FIVE
+  Particle(Particle const& other);
+  // ASSIGNMENT
+  Particle& operator=(Particle const& other);
+  Particle(Particle&& other) = delete;
+  Particle& operator=(Particle&& other) = default;
+  ~Particle() = default;
 
   // getters
   int GetParticleIndex() const noexcept;

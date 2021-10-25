@@ -23,11 +23,26 @@ Particle::Particle(std::string const& name, double Px, double Py, double Pz)
     std::cerr << "Creation failed" << '\n';
   }
 }
-
 Particle::Particle(std::string const& name)
     : Particle::Particle(name, 0., 0., 0.){};
+Particle::Particle() : index_{-1}, Px_{0.}, Py_{0.}, Pz_{0.} {};
+// copy constructor
+Particle::Particle(Particle const& other) {
+  index_ = other.GetParticleIndex();
+  Px_ = other.GetPx();
+  Py_ = other.GetPy();
+  Pz_ = other.GetPz();
+};
 
-Particle::Particle() : index_{-1}, Px_{0}, Py_{0}, Pz_{0} {};
+Particle& Particle::operator=(Particle const& other) {
+  if (this != &other) {
+    index_ = other.GetParticleIndex();
+    Px_ = other.GetPx();
+    Py_ = other.GetPy();
+    Pz_ = other.GetPz();
+  }
+  return *this;
+}
 
 // getters
 int Particle::GetParticleIndex() const noexcept { return index_; }
@@ -37,7 +52,7 @@ double Particle::GetPz() const { return Py_; };
 std::vector<double> Particle::GetP() const { return {Px_, Py_, Pz_}; };
 double Particle::GetMass() const { return ParticleType_[index_]->GetMass(); }
 double Particle::GetEtot() const {
-  double m = GetMass();  // IS IT ILLICIT?
+  double m = GetMass();  // no argument in getmass, is it illicit? (works fine for me)
   // DA CONTROLLARE PERCHE' NON PRENDE TRE PARAMETRI ANCHE SE SI IMPOSTA CPP17
   double p = hypot(Px_, Py_);
   p = hypot(p, Pz_);
