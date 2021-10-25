@@ -32,6 +32,14 @@ int main() {
   particle_copy.PrintParticle();
   // checking assignment
   Particle particle_c;
-  // particle_c = particle_copy;
+  particle_c = particle_copy;
   particle_c.PrintParticle();
+
+  // checking default constructor
+  Particle particle_d;
+  particle_d.PrintParticle();
+  // questa chiamata su una particella creata di default
+  // era illecito, in quanto non c'era il controllo che
+  // l'indice fosse un numero valido e quindi si accedeva
+  // ad un elemento inesistente nell'array
 }

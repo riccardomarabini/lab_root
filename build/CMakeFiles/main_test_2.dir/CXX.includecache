@@ -6,24 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/riccardo_marabini/root/macros/proj_root/Particle.cpp
-Particle.h
-/home/riccardo_marabini/root/macros/proj_root/Particle.h
-algorithm
--
-array
--
-cmath
--
-iostream
--
-vector
--
-ParticleType.h
-/home/riccardo_marabini/root/macros/proj_root/ParticleType.h
-ResonanceType.h
-/home/riccardo_marabini/root/macros/proj_root/ResonanceType.h
-
 /home/riccardo_marabini/root/macros/proj_root/Particle.h
 array
 -
@@ -36,23 +18,9 @@ ParticleType.h
 ResonanceType.h
 /home/riccardo_marabini/root/macros/proj_root/ResonanceType.h
 
-/home/riccardo_marabini/root/macros/proj_root/ParticleType.cpp
-ParticleType.h
-/home/riccardo_marabini/root/macros/proj_root/ParticleType.h
-iostream
--
-
 /home/riccardo_marabini/root/macros/proj_root/ParticleType.h
 string
 -
-
-/home/riccardo_marabini/root/macros/proj_root/ResonanceType.cpp
-ResonanceType.h
-/home/riccardo_marabini/root/macros/proj_root/ResonanceType.h
-iostream
--
-ParticleType.h
-/home/riccardo_marabini/root/macros/proj_root/ParticleType.h
 
 /home/riccardo_marabini/root/macros/proj_root/ResonanceType.h
 ParticleType.h

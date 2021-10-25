@@ -13,3 +13,4 @@ target_link_options(main_test_1 PRIVATE -fsanitize=address)
 add_executable( main_test_2 main_test_2.cpp ParticleType.cpp ResonanceType.cpp Particle.cpp)
 target_compile_options(main_test_2 PRIVATE -Wall -Wextra -fsanitize=address )
 target_link_options(main_test_2 PRIVATE -fsanitize=address)
+

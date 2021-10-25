@@ -52,7 +52,8 @@ double Particle::GetPz() const { return Py_; };
 std::vector<double> Particle::GetP() const { return {Px_, Py_, Pz_}; };
 double Particle::GetMass() const { return ParticleType_[index_]->GetMass(); }
 double Particle::GetEtot() const {
-  double m = GetMass();  // no argument in getmass, is it illicit? (works fine for me)
+  double m =
+      GetMass();  // no argument in getmass, is it illicit? (works fine for me)
   // DA CONTROLLARE PERCHE' NON PRENDE TRE PARAMETRI ANCHE SE SI IMPOSTA CPP17
   double p = hypot(Px_, Py_);
   p = hypot(p, Pz_);
@@ -81,8 +82,10 @@ void Particle::SetP(double Px, double Py, double Pz) {
 
 // print
 void Particle::PrintParticle() {
-  std::cout << "Index: " << index_ << '\n'
-            << "Name: " << ParticleType_[index_]->GetName() << '\n';
+  std::cout << "Index: " << index_ << '\n';
+  if (index_ != -1) {
+    std::cout << "Name: " << ParticleType_[index_]->GetName() << '\n';
+  }
   std::cout << "(Px,Py,Pz) = (" << Px_ << " , " << Py_ << " , " << Pz_ << " )"
             << '\n';
 }

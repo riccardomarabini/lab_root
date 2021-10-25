@@ -15,7 +15,7 @@ class Particle {
   // constructors
   Particle(std::string const& name, double Px, double Py, double Pz);
   Particle(std::string const& name);
-  Particle();  // quale indice dobiammo mettere di default
+  Particle();
   // FOLLOWING THE RULE OF FIVE
   Particle(Particle const& other);
   // ASSIGNMENT
