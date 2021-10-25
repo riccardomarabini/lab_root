@@ -26,4 +26,12 @@ int main() {
 
   Particle particle("particle 1", 1, 1, 1);
   std::cout << particle.GetMass() << '\n' << particle.GetEtot() << '\n';
+
+  // checking copy constructor
+  Particle particle_copy(particle);
+  particle_copy.PrintParticle();
+  // checking assignment
+  Particle particle_c;
+  // particle_c = particle_copy;
+  particle_c.PrintParticle();
 }
