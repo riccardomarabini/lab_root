@@ -51,6 +51,9 @@ double Particle::GetPy() const { return Py_; };
 double Particle::GetPz() const { return Py_; };
 std::vector<double> Particle::GetP() const { return {Px_, Py_, Pz_}; };
 double Particle::GetMass() const { return ParticleType_[index_]->GetMass(); }
+double Particle::GetCharge() const {
+  return ParticleType_[index_]->GetCharge();
+}
 double Particle::GetEtot() const {
   double m =
       GetMass();  // no argument in getmass, is it illicit? (works fine for me)

@@ -31,6 +31,7 @@ class Particle {
   double GetPz() const;
   std::vector<double> GetP() const;
   double GetMass() const;
+  double GetCharge() const;
   double GetEtot() const;
 
   // setters

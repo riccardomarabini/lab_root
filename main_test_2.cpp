@@ -42,4 +42,7 @@ int main() {
   // era illecito, in quanto non c'era il controllo che
   // l'indice fosse un numero valido e quindi si accedeva
   // ad un elemento inesistente nell'array
+
+  // checking GetCharge()
+  std::cout << particle.GetCharge() << '\n';
 }
