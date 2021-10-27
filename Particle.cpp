@@ -284,7 +284,7 @@ namespace ParticlePhysics
         particleType->Print();
       }
     }*/
-
+    std::cout << NParticleType_ << " particles have been added" << '\n';
     for (int i = 0; i < NParticleType_; ++i)
     {
       ParticleType_[i]->Print();
