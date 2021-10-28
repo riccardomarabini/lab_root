@@ -6,10 +6,11 @@
 #include "Particle.h"
 #include "ParticleType.h"
 #include "ResonanceType.h"
-#include "TMath.h"
-#include "TRandom.h"
-#include "TH1F.h"
-#include "TFile.h"
+
+#include <TMath.h>
+#include <TRandom.h>
+#include <TH1F.h>
+#include <TFile.h>
 
 R__LOAD_LIBRARY(ParticleType_cpp.so)
 R__LOAD_LIBRARY(ResonanceType_cpp.so)
@@ -47,7 +48,7 @@ void GenerateMain()
   Particle::PrintParticleType(); // check insertion has been executed correctly
 
   constexpr int N = 120;
-  //constexpr int NGen = 10e2;
+  // constexpr int NGen = 10e2;
 
   // COMPLETE HISTO DEFINITION !!!!!!!!!!!
   TH1F *hParType =
