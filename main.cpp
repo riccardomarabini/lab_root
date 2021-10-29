@@ -7,10 +7,11 @@
 #include "ParticleType.h"
 #include "ResonanceType.h"
 
-#include <TMath.h>
-#include <TRandom.h>
-#include <TH1F.h>
-#include <TFile.h>
+#include "TMath.h"
+#include "TRandom.h"
+#include "TH1F.h"
+#include "TFile.h"
+#include "TCanvas.h"
 
 R__LOAD_LIBRARY(ParticleType_cpp.so)
 R__LOAD_LIBRARY(ResonanceType_cpp.so)
@@ -53,33 +54,33 @@ void GenerateMain()
   // COMPLETE HISTO DEFINITION !!!!!!!!!!!
   TH1F *hParType =
       new TH1F("hParType", "Abundance of particles", 7, -0.5, 6.5); // filled
-  TH1F *hPhi = new TH1F("hPhi", "Azimuth distribution", 100, 0,
+  TH1F *hPhi = new TH1F("hPhi", "Azimuth distribution", 1000, 0,
                         2 * TMath::Pi()); // filled
   TH1F *hTheta =
-      new TH1F("hTheta", "Polar distribution", 100, 0, TMath::Pi()); // filled
+      new TH1F("hTheta", "Polar distribution", 1000, 0, TMath::Pi()); // filled
   TH1F *hMomentum =
-      new TH1F("hMomentum", "Momentum distribution", 30, 0, 10); // filled
+      new TH1F("hMomentum", "Momentum distribution", 1000, 0, 10); // filled
   TH1F *hMomentumOrtho =
-      new TH1F("hMomentumOrtho", "Orthogonal Momentum distribution", 30, 0,
+      new TH1F("hMomentumOrtho", "Orthogonal Momentum distribution", 1000, 0,
                10); // filled
   TH1F *hEtot =
-      new TH1F("hEtot", "Energy distribution", 20, 0, 10); // filled ll.126
+      new TH1F("hEtot", "Energy distribution", 1000, 0, 10); // filled ll.126
 
-  TH1F *hInvMass = new TH1F("hInvMass", "Invariant Mass distribution", 20, 0,
+  TH1F *hInvMass = new TH1F("hInvMass", "Invariant Mass distribution", 1000, 0,
                             2); // range 0-2
   TH1F *hInvMassOpposite = new TH1F(
-      "hInvMass+-", "Invariant Mass opposite charges distribution", 20, 0, 2);
+      "hInvMass+-", "Invariant Mass opposite charges distribution", 1000, 0, 2);
   TH1F *hInvMassSame = new TH1F(
-      "hInvMass++_--", "Invariant Mass same charges distribution", 20, 0, 2);
+      "hInvMass++_--", "Invariant Mass same charges distribution", 1000, 0, 2);
   TH1F *hInvMPionKOpposite =
       new TH1F("hInvM_pion_K_opposite",
-               "Invariant Mass pion+_K- / pion-_k+ distribution", 20, 0, 2);
+               "Invariant Mass pion+_K- / pion-_k+ distribution", 1000, 0, 2);
   TH1F *hInvMPionKSame =
       new TH1F("hInvM_pion_K_same",
-               "Invariant Mass pion+_K+ / pion-_k- distribution", 20, 0, 2);
+               "Invariant Mass pion+_K+ / pion-_k- distribution", 1000, 0, 2);
   TH1F *hInvMPionKDecay =
       new TH1F("hInvM_pion_K_decay", "Invariant Mass pion/K decay distribution",
-               20, 0, 2);
+               500, 0, 2);
 
   // setting Sumw2() for invmass histos
   hInvMass->Sumw2();
@@ -94,7 +95,7 @@ void GenerateMain()
   std::array<Particle, N> particle = {};
   gRandom->SetSeed();
 
-  for (int i = 0; i < 100000; ++i)
+  for (int i = 0; i < 10000; ++i)
   {
 
     std::vector<int> UnstableParIndex;
@@ -189,8 +190,9 @@ void GenerateMain()
 
       // per questo assegnamento è stato definito anche l'opratore = per
       // Particle
-      particle[99 + 2 * s - 1] = decay1;
-      particle[99 + 2 * s] = decay2;
+      particle[100 + 2 * (s - 1)] = decay1;
+      particle[100 + 2 * (s - 1) + 1] = decay2;
+      hInvMPionKDecay->Fill(decay1.InvMass(decay2));
     }
 
     // fill the invMass histo_s
@@ -238,26 +240,36 @@ void GenerateMain()
       }
     }
 
-    for (int s = 1; s < size + 1; ++s)
-    {
-      hInvMPionKDecay->Fill(particle[99 + s].InvMass(particle[99 + 2 * s]));
-    }
-
     UnstableParIndex.clear();
   }
 
-  hParType->Draw();
-  hPhi->Draw();
-  hTheta->Draw();
-  hMomentum->Draw();
-  hMomentumOrtho->Draw();
-  hEtot->Draw();
-  hInvMass->Draw();
-  hInvMassOpposite->Draw();
-  hInvMassSame->Draw();
-  hInvMPionKOpposite->Draw();
-  hInvMPionKSame->Draw();
-  hInvMPionKDecay->Draw();
+  TCanvas *c1 = new TCanvas("c1", "control canvass", 10, 20, 500, 600);
+
+  c1->Divide(4, 3);
+  c1->cd(1);
+  hParType->Draw("HISTO");
+  c1->cd(2);
+  hPhi->Draw("HISTO");
+  c1->cd(3);
+  hTheta->Draw("HISTO");
+  c1->cd(4);
+  hMomentum->Draw("HISTO");
+  c1->cd(5);
+  hMomentumOrtho->Draw("HISTO");
+  c1->cd(6);
+  hEtot->Draw("HISTO");
+  c1->cd(7);
+  hInvMass->Draw("HISTO");
+  c1->cd(8);
+  hInvMassOpposite->Draw("HISTO");
+  c1->cd(9);
+  hInvMassSame->Draw("HISTO");
+  c1->cd(10);
+  hInvMPionKOpposite->Draw("HISTO");
+  c1->cd(11);
+  hInvMPionKSame->Draw("HISTO");
+  c1->cd(12);
+  hInvMPionKDecay->Draw("HISTO");
 
   // WRITING ALL EXISTING OBJECTS IN A TFILE
   TFile *particleRootFile = new TFile("paricleRootFile", "RECREATE");

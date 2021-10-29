@@ -115,13 +115,14 @@ namespace ParticlePhysics
   // manipolazione
   double Particle::InvMass(Particle const &p) const
   {
-    double Px = Px_ + GetPx();
-    double Py = Py_ + GetPy();
-    double Pz = Pz_ + GetPz();
+    /*double Px = Px_ + p.GetPx();
+    double Py = Py_ + p.GetPy();
+    double Pz = Pz_ + p.GetPz();
     double norm2 = pow(hypot(hypot(Px, Py), Pz), 2);
-    double E2 = pow(GetEtot() - p.GetEtot(), 2);
+    double E2 = pow(GetEtot() + p.GetEtot(), 2);
     double M2 = E2 - norm2;
-    return pow(M2, .5);
+    return pow(M2, .5);*/
+    return sqrt(pow(GetEtot() + p.GetEtot(), 2) - (pow(Px_ + p.GetPx(), 2) + pow(Py_ + p.GetPy(), 2) + pow(Pz_ + p.GetPz(), 2)));
   }
   int Particle::Decay2body(Particle &dau1, Particle &dau2) const
   {
