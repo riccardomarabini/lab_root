@@ -51,7 +51,7 @@ void GenerateMain()
   constexpr int N = 120;
   // constexpr int NGen = 10e2;
 
-  // COMPLETE HISTO DEFINITION !!!!!!!!!!!
+  // Histo definition
   TH1F *hParType =
       new TH1F("hParType", "Abundance of particles", 7, -0.5, 6.5); // filled
   TH1F *hPhi = new TH1F("hPhi", "Azimuth distribution", 1000, 0,
@@ -67,20 +67,20 @@ void GenerateMain()
       new TH1F("hEtot", "Energy distribution", 1000, 0, 10); // filled ll.126
 
   TH1F *hInvMass = new TH1F("hInvMass", "Invariant Mass distribution", 1000, 0,
-                            2); // range 0-2
+                            5); // range 0-2
   TH1F *hInvMassOpposite = new TH1F(
-      "hInvMass+-", "Invariant Mass opposite charges distribution", 1000, 0, 2);
+      "hInvMass+-", "Invariant Mass opposite charges distribution", 1000, 0, 5);
   TH1F *hInvMassSame = new TH1F(
-      "hInvMass++_--", "Invariant Mass same charges distribution", 1000, 0, 2);
+      "hInvMass++_--", "Invariant Mass same charges distribution", 1000, 0, 5);
   TH1F *hInvMPionKOpposite =
       new TH1F("hInvM_pion_K_opposite",
-               "Invariant Mass pion+_K- / pion-_k+ distribution", 1000, 0, 2);
+               "Invariant Mass pion+_K- / pion-_k+ distribution", 1000, 0, 5);
   TH1F *hInvMPionKSame =
       new TH1F("hInvM_pion_K_same",
-               "Invariant Mass pion+_K+ / pion-_k- distribution", 1000, 0, 2);
+               "Invariant Mass pion+_K+ / pion-_k- distribution", 1000, 0, 5);
   TH1F *hInvMPionKDecay =
       new TH1F("hInvM_pion_K_decay", "Invariant Mass pion/K decay distribution",
-               500, 0, 2);
+               500, 0, 5);
 
   // setting Sumw2() for invmass histos
   hInvMass->Sumw2();
@@ -111,7 +111,7 @@ void GenerateMain()
 
       double Px = sin(theta) * cos(phi) * momentum;
       double Py = sin(theta) * sin(phi) * momentum;
-      double Pz = sin(theta) * momentum;
+      double Pz = cos(theta) * momentum;
       particle[j].SetP(Px, Py, Pz);
       const double momentumOrtho = hypot(Px, Py);
       hMomentumOrtho->Fill(momentumOrtho); // hMomentumOrtho
@@ -153,8 +153,6 @@ void GenerateMain()
       {
         particle[j].SetParticleType(6);
         hParType->Fill(6);
-        // si potrebbe creare un vector che ricorda tutte le posizioni di tutte
-        // le particelle K*
         UnstableParIndex.push_back(j);
       }
 
@@ -164,35 +162,33 @@ void GenerateMain()
 
     // unstable particles are bound to decay
     const int size = static_cast<int>(UnstableParIndex.size());
-    for (int s = 1; s < size + 1; ++s)
+    for (int s = 0; s < size; ++s)
     {
-      Particle decay1;
-      Particle decay2;
-
       // set randomly what are the result of the decay and fill the histo of
       // types
       if (gRandom->TRandom::Rndm() < 0.5)
       {
-        decay1.SetParticleType(0);
+        particle[100 + 2 * s].SetParticleType(0);
         // hParType->Fill(0);
-        decay2.SetParticleType(3);
+        particle[100 + 2 * s + 1].SetParticleType(3);
         // hParType->Fill(3);
       }
       else
       {
-        decay1.SetParticleType(1);
+        particle[100 + 2 * s].SetParticleType(1);
         // hParType->Fill(1);
-        decay2.SetParticleType(2);
+        particle[100 + 2 * s + 1].SetParticleType(2);
         // hParType->Fill(2);
       }
 
-      particle[UnstableParIndex[s - 1]].Decay2body(decay1, decay2);
+      particle[UnstableParIndex[s]].Decay2body(particle[100 + 2 * s], particle[100 + 2 * s + 1]);
 
       // per questo assegnamento è stato definito anche l'opratore = per
       // Particle
-      particle[100 + 2 * (s - 1)] = decay1;
-      particle[100 + 2 * (s - 1) + 1] = decay2;
-      hInvMPionKDecay->Fill(decay1.InvMass(decay2));
+      // particle[100 + 2 * s] = decay1;
+      // particle[100 + 2 * s + 1] = decay2;
+
+      hInvMPionKDecay->Fill((particle[100 + 2 * s + 1]).InvMass(particle[100 + 2 * s]));
     }
 
     // fill the invMass histo_s
@@ -210,30 +206,35 @@ void GenerateMain()
         const int index1 = particle1.GetParticleIndex();
         const int index2 = particle2.GetParticleIndex();
 
-        hInvMass->Fill(particle1.InvMass(particle2));
-
+        if (index1 != 6 && index2 != 6)
+        {
+          hInvMass->Fill(particle1.InvMass(particle2));
+        }
         // opposite charge
-        if (particle1.GetCharge() * particle2.GetCharge() < 0)
+        if ((particle1.GetCharge() * particle2.GetCharge()) < 0)
         {
           hInvMassOpposite->Fill(particle1.InvMass(particle2));
         }
-        if (particle1.GetCharge() * particle2.GetCharge() > 0)
+        // same charge
+        if ((particle1.GetCharge() * particle2.GetCharge()) > 0)
         {
           hInvMassSame->Fill(particle1.InvMass(particle2));
         }
-        if ((index1 == 0 && index2 == 3)) //|| (index1 == 1 && index2 == 2)
+        // pion+ ang k- or pion- and k+
+        if ((index1 == 0 && index2 == 3))
         {
           hInvMPionKOpposite->Fill(particle1.InvMass(particle2));
         }
-        if ((index1 == 1 && index2 == 2)) //|| (index1 == 1 && index2 == 2)
+        if ((index1 == 1 && index2 == 2))
         {
           hInvMPionKOpposite->Fill(particle1.InvMass(particle2));
         }
-        if ((index1 == 0 && index2 == 2)) //|| (index1 == 1 && index2 == 3)
+        // pion+ and k+ or pion- and k-
+        if ((index1 == 0 && index2 == 2))
         {
           hInvMPionKSame->Fill(particle1.InvMass(particle2));
         }
-        if ((index1 == 1 && index2 == 3)) //|| (index1 == 1 && index2 == 3)
+        if ((index1 == 1 && index2 == 3))
         {
           hInvMPionKSame->Fill(particle1.InvMass(particle2));
         }
@@ -243,36 +244,50 @@ void GenerateMain()
     UnstableParIndex.clear();
   }
 
-  TCanvas *c1 = new TCanvas("c1", "control canvass", 10, 20, 500, 600);
+  // Drawing all histos as a double-check
+  TCanvas *c1 = new TCanvas("c1", "control canvass", 10, 20, 800, 800);
 
   c1->Divide(4, 3);
   c1->cd(1);
-  hParType->Draw("HISTO");
+  hParType->Draw();
   c1->cd(2);
-  hPhi->Draw("HISTO");
+  hPhi->Draw();
   c1->cd(3);
-  hTheta->Draw("HISTO");
+  hTheta->Draw();
   c1->cd(4);
-  hMomentum->Draw("HISTO");
+  hMomentum->Draw();
   c1->cd(5);
-  hMomentumOrtho->Draw("HISTO");
+  hMomentumOrtho->Draw();
   c1->cd(6);
-  hEtot->Draw("HISTO");
+  hEtot->Draw();
   c1->cd(7);
-  hInvMass->Draw("HISTO");
+  hInvMass->Draw();
   c1->cd(8);
-  hInvMassOpposite->Draw("HISTO");
+  hInvMassOpposite->Draw();
   c1->cd(9);
-  hInvMassSame->Draw("HISTO");
+  hInvMassSame->Draw();
   c1->cd(10);
-  hInvMPionKOpposite->Draw("HISTO");
+  hInvMPionKOpposite->Draw();
   c1->cd(11);
-  hInvMPionKSame->Draw("HISTO");
+  hInvMPionKSame->Draw();
   c1->cd(12);
-  hInvMPionKDecay->Draw("HISTO");
+  hInvMPionKDecay->Draw();
 
   // WRITING ALL EXISTING OBJECTS IN A TFILE
-  TFile *particleRootFile = new TFile("paricleRootFile", "RECREATE");
-  particleRootFile->Write();
+  TFile *particleRootFile = new TFile("particleRootFile.root", "RECREATE");
+  particleRootFile->cd();
+  hParType->Write();
+  hPhi->Write();
+  hTheta->Write();
+  hMomentum->Write();
+  hMomentumOrtho->Write();
+  hEtot->Write();
+  hInvMass->Write();
+  hInvMassOpposite->Write();
+  hInvMassSame->Write();
+  hInvMPionKOpposite->Write();
+  hInvMPionKSame->Write();
+  hInvMPionKDecay->Write();
+
   particleRootFile->Close();
 }

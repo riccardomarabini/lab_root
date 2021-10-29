@@ -65,9 +65,7 @@ namespace ParticlePhysics
   }
   double Particle::GetEtot() const
   {
-    double m =
-        GetMass(); // no argument in getmass, is it illicit? (works fine for me)
-    // DA CONTROLLARE PERCHE' NON PRENDE TRE PARAMETRI ANCHE SE SI IMPOSTA CPP17
+    double m = GetMass();
     double p = hypot(Px_, Py_);
     p = hypot(p, Pz_);
     return hypot(m, p);
@@ -122,8 +120,10 @@ namespace ParticlePhysics
     double E2 = pow(GetEtot() + p.GetEtot(), 2);
     double M2 = E2 - norm2;
     return pow(M2, .5);*/
+
     return sqrt(pow(GetEtot() + p.GetEtot(), 2) - (pow(Px_ + p.GetPx(), 2) + pow(Py_ + p.GetPy(), 2) + pow(Pz_ + p.GetPz(), 2)));
   }
+
   int Particle::Decay2body(Particle &dau1, Particle &dau2) const
   {
     if (GetMass() == 0.0)
@@ -192,6 +192,7 @@ namespace ParticlePhysics
 
     return 0;
   }
+
   void Particle::Boost(double bx, double by, double bz)
   {
     double energy = GetEtot();
