@@ -48,9 +48,6 @@ void GenerateMain()
 
   Particle::PrintParticleType(); // check insertion has been executed correctly
 
-  constexpr int N = 120;
-  // constexpr int NGen = 10e2;
-
   // Histo definition
   TH1F *hParType =
       new TH1F("hParType", "Abundance of particles", 7, -0.5, 6.5); // filled
@@ -91,6 +88,8 @@ void GenerateMain()
   hInvMPionKDecay->Sumw2();
 
   std::cout << "OK, it is fine till now\n";
+
+  constexpr int N = 120;
 
   std::array<Particle, N> particle = {};
   gRandom->SetSeed();
